@@ -44,6 +44,8 @@ export default function SignInPage() {
       password: password.value,
     });
 
+    // 실패하고 나서 토스트 알림창이 떠야한다. -> error, ui -> 커스텀훅
+
     if (result.status === 200) {
       localStorageUtil.accessToken.set(result.data.data.accessToken);
       navigator("/folder");
@@ -65,7 +67,7 @@ export default function SignInPage() {
         name="email"
         target={target}
         pattern="^.+@.+\..{2,4}$"
-        render={() => render({})}
+        render={render}
         onKeyDown={onEnterKeyDown}
         placeholder="이메일을 입력해주세요."
         erorrMessage={{
@@ -79,7 +81,7 @@ export default function SignInPage() {
         type="password"
         target={target}
         pattern="(?=.*\d)(?=.*[a-z]).{8,}"
-        render={() => render({})}
+        render={render}
         onKeyDown={onEnterKeyDown}
         placeholder="비밀번호를 입력해주세요."
         erorrMessage={{

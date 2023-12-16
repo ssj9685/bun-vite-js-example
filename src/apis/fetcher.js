@@ -1,3 +1,4 @@
+// fetch wrapper => 왜? 확장성
 export class Fetcher {
   static baseUrl =
     typeof window !== "undefined" ? import.meta.env.VITE_BASE_URL : "";

@@ -29,10 +29,13 @@ export default function SignUpPage() {
       error: false,
     },
   });
+  // 라이브러리는 남이 (잘)만든 코드 -> 나보다 잘만듬, 유지보수를 대신 해줌, 공짜다
+  // react-hook-form 쓰세요.
 
   const { email, password, confirmedPassword } = target.current;
 
   const { response, refetch } = useCheckEmail(email.value);
+  // tanstack query 쓰세요.
 
   const buttonDisabled =
     email.value === "" ||
@@ -56,6 +59,13 @@ export default function SignUpPage() {
     refetch(email.value);
   };
 
+  /**
+   * 컴포넌트를 만들 때 원칙
+   * 1. 반복되는 상태를 찾는다
+   * 2. 반복되는 로직을 찾는다
+   * 3. 반복되지 않는 부분을 찾는다
+   */
+
   return (
     <div
       style={{
@@ -71,7 +81,7 @@ export default function SignUpPage() {
         name="email"
         target={target}
         pattern="^.+@.+\..{2,4}$"
-        render={() => render({})}
+        render={render}
         placeholder="이메일을 입력해주세요."
         onChange={handleOnChange}
         erorrMessage={{
@@ -91,7 +101,7 @@ export default function SignUpPage() {
         type="password"
         target={target}
         pattern="(?=.*\d)(?=.*[a-z]).{8,}"
-        render={() => render({})}
+        render={render}
         placeholder="비밀번호를 입력해주세요."
         erorrMessage={{
           empty: "비밀번호를 입력해주세요.",
@@ -103,7 +113,7 @@ export default function SignUpPage() {
         name="confirmedPassword"
         type="password"
         target={target}
-        render={() => render({})}
+        render={render}
         placeholder="비밀번호를 확인해주세요."
         customErrors={[
           {

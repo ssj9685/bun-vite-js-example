@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 
 export function useInput(initalValue) {
-  const [, render] = useState({});
+  const [, _render] = useState({});
+
+  const render = () => {
+    _render({});
+  };
 
   const target = useRef(initalValue);
 
