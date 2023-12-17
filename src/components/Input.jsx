@@ -1,8 +1,20 @@
 import { useState } from "react";
 import { ErrorMessage } from "~/components/ErrorMessage";
 
+/**
+ * @typedef {import("react").InputHTMLAttributes} InputHTMLAttributes
+ * @typedef {import("react").MutableRefObject} MutableRefObject
+ * @typedef {{visible: (value: string, focused: boolean)=>boolean, text: string}[]} CustomErrors
+ * @typedef {InputHTMLAttributes & {customErrors?: CustomErrors, errorMessage?: {empty: string, valid: string}, target: MutableRefObject, render: () => void}} Props
+ */
+
+/**
+ *
+ * @param {Props} props
+ * @returns {import("react").ReactElement}
+ */
 export function Input(props) {
-  const { customErrors, pattern, erorrMessage, target, name, render, ...rest } =
+  const { customErrors, pattern, errorMessage, target, name, render, ...rest } =
     props;
 
   const object = target.current[name];
@@ -19,6 +31,9 @@ export function Input(props) {
   // 저번 시간엔 비즈니스 로직을 분리하였다.
   // 컴포넌트를 설계할 때 관심사를 분리해야한다. -> 전체가 봐야하는 상태/본인만 알아도 되는 상태
   // 나중에 이 상태값이 다른 형제들에게 필요하다면 -> 형제들을 포함하는 컴포넌트로 상태를 올려줘야한다.
+  /**
+   * @type {[boolean, (value:boolean) => void]}
+   */
   const [focused, setFocused] = useState();
 
   const getErrors = (v) => {
@@ -82,11 +97,11 @@ export function Input(props) {
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {emptyError && erorrMessage?.empty && (
-        <ErrorMessage text={erorrMessage.empty} />
+      {emptyError && errorMessage?.empty && (
+        <ErrorMessage text={errorMessage.empty} />
       )}
-      {validError && erorrMessage?.valid && (
-        <ErrorMessage text={erorrMessage.valid} />
+      {validError && errorMessage?.valid && (
+        <ErrorMessage text={errorMessage.valid} />
       )}
       {customErrors?.map((error, key) => {
         const { visible, text } = error;

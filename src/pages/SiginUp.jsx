@@ -84,7 +84,7 @@ export default function SignUpPage() {
         render={render}
         placeholder="이메일을 입력해주세요."
         onChange={handleOnChange}
-        erorrMessage={{
+        errorMessage={{
           empty: "이메일을 입력해주세요.",
           valid: "올바른 이메일 주소가 아닙니다.",
         }}
@@ -103,7 +103,7 @@ export default function SignUpPage() {
         pattern="(?=.*\d)(?=.*[a-z]).{8,}"
         render={render}
         placeholder="비밀번호를 입력해주세요."
-        erorrMessage={{
+        errorMessage={{
           empty: "비밀번호를 입력해주세요.",
           valid: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
         }}
